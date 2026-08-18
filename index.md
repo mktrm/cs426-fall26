@@ -49,7 +49,7 @@ The course compares and analyzes security and privacy threats and architectures 
 {% endif %}
 
 ## Lectures
-Lectures are Tu/Th from 1:30 pm to 2:45 pm, [Wetherill Lab of Chemistry 320](){:target="_blank"}.
+Lectures are M/W from 4:30 pm to 5:45 pm, [Stewart Center 320](){:target="_blank"}.
 
 Updated Office Hours on BrightSpace (See [Course Calendar](https://purdue.brightspace.com/d2l/le/calendar/1360139/home/list){:target="_blank"}).
 
@@ -125,11 +125,11 @@ We will have ~10 homework sets. Generally they will be released on Thursdays and
 
 ### Midterm (15%)
 This course will have one midterm exam.
-The midterm is scheduled to be **in class on Oct 23**. 
+The midterm is scheduled for **Wednesday, Oct 14, 6:30PM - 7:30PM** at **RHPH 172**. 
 
 ### Final (40%)
 The final exam will be cumulative over all of the course content.
-The final is scheduled to be on **Thursday 12/18 10:30AM - 12:30PM** at **BHEE 170**
+The final will be held during the university final exam period, **Dec 14 - Dec 19**. The exact day, time, and room are set by the registrar and will be posted here once the Purdue final exam schedule is released.
 
 
 ## Late Assignments
@@ -182,9 +182,7 @@ Please see [Brightspace]() for complete list of university policies and statemen
 
 This is a tentative schedule and we may change it as the course proceeds. 
 
-{% for module in site.modules %}
-{{ module }}
-{% endfor %}
+{% include agenda.html %}
 
 
 ## DISCLAIMER

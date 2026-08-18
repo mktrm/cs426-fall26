@@ -15,9 +15,9 @@
 # in the templates via {{ site.myvariable }}.
 title: CS-426 
 tagline: 'Computer Security'
-description:  CS-426, Fall 2025
+description:  CS-426, Fall 2026
 author: Kazem Taram
-baseurl: '/cs426-fall25' # the subpath of your site, e.g. /blog
+baseurl: '/cs426-fall26' # the subpath of your site, e.g. /blog
 url: 'https://mktrm.github.io/' # the base hostname & protocol for your site, e.g. http://example.com
 exclude: ["Gemfile", "Gemfile.lock", "LICENSE", "README.md"]
 
@@ -38,7 +38,6 @@ footer_content: '<a rel="license" href="http://creativecommons.org/licenses/by-n
 # Collections for website data
 collections:
   staffers:
-  modules:
   schedules:
   announcements:
 # Default layouts for each collection type
@@ -49,11 +48,6 @@ defaults:
     values:
       layout: staffer
       subpath: '/assets/images/'
-  - scope:
-      path: ''
-      type: modules
-    values:
-      layout: module
   - scope:
       path: ''
       type: schedules

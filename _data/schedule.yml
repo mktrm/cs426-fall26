@@ -1,0 +1,193 @@
+# ---------------------------------------------------------------------------
+# Course schedule.
+#
+# Dates are NOT written here. The template walks the calendar from `start`,
+# keeps only the weekdays in `meets`, skips `holidays`, and hands session N the
+# N-th surviving day. So to spend an extra lecture on a topic, just insert
+# another entry in `sessions` — every date after it shifts automatically.
+#
+# Homework is the exception: it lives in `homework` below with real dates, so
+# it can land on days the class does not meet (releases are usually Thursdays).
+# Those dates are absolute — inserting a session does NOT shift them.
+#
+# Rendered by _includes/agenda.html
+# ---------------------------------------------------------------------------
+
+start: "2026-08-24"     # first day of classes (must be the Monday of week 1)
+end: "2026-12-12"       # last day of classes
+meets: [1, 3]           # weekday numbers: 0=Sun, 1=Mon ... 6=Sat
+
+holidays:
+  "2026-09-07": Labor Day
+  "2026-10-12": Fall Break
+  "2026-11-25": Thanksgiving Break
+
+final:
+  dates: Dec 14 - Dec 19
+  note: Exact day, time, and room TBD (Purdue final exam schedule)
+
+# --- Homework. One entry per assignment, dates are absolute. ---------------
+# `out` is the release date, `due` the deadline. Every Monday carries a release
+# and the previous set's deadline, so a set is out for a week. The exceptions
+# are all forced by the calendar: weeks 3 and 8 are Labor Day and Fall Break,
+# week 1 has nothing to collect yet, and releases stop after week 14 so the
+# last deadline still lands on a Monday rather than in the final week.
+#
+# A date that is not a class day still gets its own row in the agenda.
+homework:
+  - {id: 1,  out: "2026-08-24", due: "2026-08-31"}  # wk 1  -> wk 2 gdb
+  - {id: 2,  out: "2026-08-31", due: "2026-09-14"}  # wk 2  -> wk 4 overflow
+  - {id: 3,  out: "2026-09-14", due: "2026-09-21"}  # wk 4  -> wk 5 adv overflow
+  - {id: 4,  out: "2026-09-21", due: "2026-09-28"}  # wk 5  -> wk 6 rop/heap
+  - {id: 5,  out: "2026-09-28", due: "2026-10-05"}  # wk 6  -> wk 7 sandboxing
+  - {id: 6,  out: "2026-10-05", due: "2026-10-19"}  # wk 7  -> wk 9 side channels
+  - {id: 7,  out: "2026-10-19", due: "2026-10-26"}  # wk 9  -> wk 10 
+  - {id: 8,  out: "2026-10-26", due: "2026-11-02"}  # wk 10 -> wk 11 web
+  - {id: 9,  out: "2026-11-02", due: "2026-11-09"}  # wk 11 -> wk 12 net
+  - {id: 10, out: "2026-11-09", due: "2026-11-16"}  # wk 12 -> wk 13 ai
+  - {id: 11, out: "2026-11-16", due: "2026-12-02"}  # wk 13 -> wk 14 crypto
+  # - {id: 12, out: "2026-11-23", due: "2026-11-30"}  # wk 14 -> wk 15 
+
+# --- Reading lists shared by more than one lecture -------------------------
+# Defined once with &name, referenced below with *name.
+readings:
+  smashing: &smashing >-
+    [Smashing the Stack for Fun and Profit by Aleph
+    One](http://phrack.org/issues/49/14.html#article); 
+    Optional: 0×300-0×320
+    from [Hacking
+    book](http://www.lib.purdue.edu/holdings?isbn=9781593271442&course=202410-CS-42600).
+    0×200-0×270 if you don't have a strong C background.
+
+  aslr: &aslr >-
+    [ASLR](https://pax.grsecurity.net/docs/aslr.txt);
+    [NOEXEC](https://pax.grsecurity.net/docs/noexec.txt).
+
+  heap: &heap >-
+    [Fantastic memory issues and how to fix them by Eric
+    Rescorla](https://educatedguesswork.org/posts/memory-safety/) and
+    [Understanding glibc malloc by
+    sploitfun](https://sploitfun.wordpress.com/2015/02/10/understanding-glibc-malloc/)
+    Optional: [Advanced Doug lea's malloc exploits by
+    jp](http://phrack.org/issues/61/6.html), [Automatic Techniques to
+    Systematically Discover New Heap Exploitation Primitives by Insu Yun et
+    al.](https://www.usenix.org/conference/usenixsecurity20/presentation/yun)
+
+  spectre: &spectre >-
+    Read:[Spectre Attacks: Exploiting Speculative
+    Execution](https://spectreattack.com/spectre.pdf) by Paul Kocher et al.
+
+  web: &web >-
+    Read:[Robust defenses for cross-site request
+    forgery](https://seclab.stanford.edu/websec/csrf/csrf.pdf) by Adam Barth,
+    et al., and [Finding and Fixing DOM-based XSS with Static
+    Analysis](https://blog.mozilla.org/attack-and-defense/2021/11/03/finding-and-fixing-dom-based-xss-with-static-analysis/)
+    by Frederik Brun
+
+# --- Sessions, in order. One entry = one class meeting. --------------------
+sessions:
+  - topic: Introduction
+    # slides: https://purdue.brightspace.com/d2l/le/content/1360139/viewContent/20125751/View
+
+  - topic: Security Fundamentals
+    # slides: https://purdue.brightspace.com/d2l/le/content/1360139/viewContent/20122864/View
+    readings: >-
+      Read: This World of Ours by James Mickens Watch: USENIX Security 2018
+      Keynote by James Mickens
+
+  - topic: Buffer Overflow Attacks 1
+    readings: *smashing
+
+  - topic: Buffer Overflow Attacks 2
+    readings: *smashing
+
+  - topic: Buffer Overflow Defenses 1
+    readings: *smashing
+
+  - topic: Buffer Overflow Defenses 2
+    readings: *aslr
+
+  - topic: Memory Safety (ROP)
+    readings: *aslr
+
+  - topic: Memory safety (Heap)
+    readings: >-
+      Read [Read: On the Effectiveness of Address-Space Randomization by Hovav
+      Shacham et al](https://benpfaff.org/papers/asrandom.pdf)
+      [ASLR](https://pax.grsecurity.net/docs/aslr.txt);
+      [NOEXEC](https://pax.grsecurity.net/docs/noexec.txt).
+
+  - topic: Memory safety (Heap & Int overflow)
+    readings: >-
+      [Read: Low-Level Software Security by Example by Ulfar Erlingsson et
+      al](https://lirias.kuleuven.be/retrieve/110131). Optional: [The Geometry
+      of Innocent Flesh on the Bone: Return-into-libc without Function Calls
+      (on the x86) by Hovav Shacham](https://hovav.net/ucsd/dist/geometry.pdf),
+      [Hacking Blind by Andrea Bittau et
+      al.](https://www.scs.stanford.edu/~sorbo/brop/bittau-brop.pdf)[Read: On
+      the Effectiveness of Address-Space Randomization by Hovav Shacham et
+      al](https://benpfaff.org/papers/asrandom.pdf)
+
+  - topic: Memory Safety (CFI)
+    readings: *heap
+
+  - topic: Sandboxing and Isolation
+    readings: >-
+      Watch: [USENIX Security
+      talk](https://www.usenix.org/conference/usenixsecurity20/presentation/narayan)
+      by Shravan Narayan Read: [The Road to Less Trusted Code: Lowering the
+      Barrier to In-process
+      Sandboxing](https://cseweb.ucsd.edu/~dstefan/noindex/login2020/) by
+      Garfinkel et al. Optional: [Retrofitting Fine Grain Isolation in the
+      Firefox Renderer](https://cseweb.ucsd.edu/~dstefan/pubs/narayan:2020:rlbox.pdf)
+      by Narayan et al., [Operating System
+      Security](http://www.morganclaypool.com/doi/abs/10.2200/S00126ED1V01Y200808SPT001)
+      by Trent Jaeger, [Android System and kernel
+      security](https://source.android.com/security/overview/kernel-security),
+      and https://www.apple.com/business/docs/iOS_Security_Guide.pdf
+
+  - topic: Side Channels 1
+    readings_prefix: "Same as prev lecture."
+    readings: *heap
+
+  - topic: Side Channels 2
+    readings: *spectre
+
+  - topic: Midterm Review
+    event:
+      name: Midterm Exam
+      detail: 6:30PM - 7:30PM at RHPH 172
+
+  - topic: Web Intro
+    readings: *spectre
+
+  - topic: Web Security Model
+    readings: *web
+
+  - topic: Web Attacks
+    readings: *web
+
+  - topic: Network Intro
+
+  - topic: Network Attacks & Defenses
+
+  - topic: AI + Security
+
+  - topic: AI + Security 2
+
+  - topic: Symmetric Key Crypto 1
+
+  - topic: Symmetric Key Crypto 2
+    # slides: https://purdue.brightspace.com/d2l/le/content/1216789/viewContent/19088038/View
+
+  - topic: Public Key Crypto-1
+
+  - topic: Public Key Crypto-2
+
+  - topic: TLS & Privacy
+
+  - note: Buffer / Catch-up
+
+  - note: Buffer / Catch-up
+
+  - topic: Final Review

@@ -1,0 +1,111 @@
+{%- comment -%}
+Renders _data/schedule.yml as the course agenda.
+
+Walks every day from `start` to `end`, keeps the weekdays listed in `meets`,
+and assigns sessions to those days in order — skipping `holidays`, which get
+their own "No Class" row. Because dates are derived rather than stored,
+inserting a session shifts everything after it automatically.
+
+Homework comes from `homework` instead, matched by absolute date, so a release
+or deadline can fall on a day the class does not meet — such a day gets a row
+of its own with nothing but the homework labels.
+
+Date arithmetic: the day cursor is anchored at 12:00, not midnight. Adding
+86400s from local midnight lands on 23:00 the *previous* day once the clocks
+change (Nov 1), which would silently shift every December date back a day.
+Noon leaves an hour of slack on both sides.
+
+Formatting: this include is expanded inside a Markdown page, so emitted HTML
+must start at column 0. Four spaces of indentation would make kramdown treat
+the whole agenda as a code block. Liquid tags may be indented; the hyphen
+whitespace controls strip their surrounding blanks.
+{%- endcomment -%}
+{%- assign sched = site.data.schedule -%}
+{%- assign epoch = sched.start | append: " 12:00:00" | date: "%s" | plus: 0 -%}
+{%- assign last = sched.end | append: " 12:00:00" | date: "%s" | plus: 0 -%}
+{%- assign span = last | minus: epoch | divided_by: 86400 -%}
+{%- assign dow0 = epoch | date: "%w" | plus: 0 -%}
+{%- assign total = sched.sessions | size -%}
+{%- assign idx = 0 -%}
+{%- assign week = -1 -%}
+{%- for offset in (0..span) -%}
+{%- assign now = offset | times: 86400 | plus: epoch -%}
+{%- assign iso = now | date: "%Y-%m-%d" -%}
+{%- assign dow = now | date: "%w" | plus: 0 -%}
+{%- assign hwdue = sched.homework | where: "due", iso -%}
+{%- assign hwout = sched.homework | where: "out", iso -%}
+{%- assign nhw = hwdue | size | plus: hwout.size -%}
+{%- assign classday = false -%}
+{%- if sched.meets contains dow -%}{%- assign classday = true -%}{%- endif -%}
+{%- comment -%}A day earns a row if class meets, or if homework lands on it.{%- endcomment -%}
+{%- unless classday or nhw > 0 -%}{%- continue -%}{%- endunless -%}
+{%- if idx >= total and nhw == 0 -%}{%- continue -%}{%- endif -%}
+{%- assign holiday = sched.holidays[iso] -%}
+{%- capture hwmarks -%}
+{%- for h in hwdue -%}<a href="" class="label label-yellow"><strong>HW{{ h.id }} Due</strong></a> {% endfor -%}
+{%- for h in hwout -%}<a href="" class="label label-purple"><strong>HW{{ h.id }} Release</strong></a> {% endfor -%}
+{%- endcapture -%}
+{%- assign thisweek = offset | plus: dow0 | minus: 1 | divided_by: 7 -%}
+{%- if thisweek != week -%}
+{%- unless week == -1 -%}</dl></div>{%- endunless -%}
+{%- assign week = thisweek -%}
+{%- assign n = week | plus: 1 -%}
+<h3 class="fs-4" id="week-{{ n }}">Week-{{ n }}</h3>
+<div class="module"><dl>
+{%- if week == 0 -%}<dt><strong>Date</strong></dt><dd><strong>Topic</strong></dd>{%- endif -%}
+{%- endif -%}
+<dt>{{ now | date: "%b %d" }}</dt>
+{%- comment -%}
+Rows without a lecture — a holiday, a buffer day, or a bare homework date —
+still borrow the lecture row's inner <dl> whenever they carry labels, so every
+HW label lands in the same column as the rest.
+{%- endcomment -%}
+{%- assign plain = nil -%}
+{%- assign nolecture = false -%}
+{%- if holiday and classday -%}{%- assign plain = holiday | append: " (No Class)" -%}
+{%- elsif classday == false or idx >= total -%}
+{%- comment -%}Nothing to name in the topic column, so it gets a dash.{%- endcomment -%}
+{%- assign plain = "—" -%}{%- assign nolecture = true -%}
+{%- else -%}
+{%- assign s = sched.sessions[idx] -%}
+{%- assign idx = idx | plus: 1 -%}
+{%- if s.note -%}{%- assign plain = s.note -%}{%- endif -%}
+{%- endif -%}
+{%- if plain -%}
+{%- capture label -%}
+{%- if nolecture -%}<span class="no-lecture">{{ plain }}</span>
+{%- else -%}<strong>{{ plain }}</strong>{%- endif -%}
+{%- endcapture -%}
+{%- if nhw > 0 -%}
+<dd><dl><dt>{{ label }}</dt><dd class="marks">{{ hwmarks | strip }}</dd></dl></dd>
+{%- else -%}
+<dd>{{ label }}</dd>
+{%- endif -%}
+{%- continue -%}
+{%- endif -%}
+<dd><dl><dt><a href="{{ s.slides }}">{{ s.topic }}</a></dt>
+{%- if nhw > 0 -%}
+<dd class="marks">{{ hwmarks | strip }}</dd>
+{%- endif -%}
+{%- if s.event -%}
+<dd class="event"><a href="" class="label label-red"><strong>{{ s.event.name }}</strong> {{ s.event.detail }}</a></dd>
+{%- endif -%}
+{%- if s.readings -%}
+{%- capture reading -%}{% if s.readings_prefix %}{{ s.readings_prefix }} {% endif %}{{ s.readings }}{%- endcapture -%}
+<dd class="readings"><details title="recommended readings" class="my"><summary><i class="icon fas fa-book-reader "></i></summary><span class="fs-2">{{ reading | markdownify | replace: "<p>", "" | replace: "</p>", "" | strip }}</span></details></dd>
+{%- endif -%}
+</dl></dd>
+{%- endfor -%}
+{%- unless week == -1 -%}</dl></div>{%- endunless -%}
+{%- if sched.final -%}
+<h3 class="fs-4" id="final">Final</h3>
+<div class="module"><dl><dt>{{ sched.final.dates }}</dt>
+<dd><dl><dt><a href="">Final Exam</a></dt>
+<dd>{{ sched.final.note }}</dd>
+</dl></dd>
+</dl></div>
+{%- endif -%}
+{%- if idx < total -%}
+{%- assign over = total | minus: idx -%}
+<p><a href="" class="label label-red">Schedule overflow: {{ over }} session(s) do not fit before {{ sched.end }}</a></p>
+{%- endif -%}

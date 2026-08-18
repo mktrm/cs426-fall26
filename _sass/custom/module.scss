@@ -78,9 +78,14 @@
       dl {
         display: flex;
         flex-direction: column;
+        position: relative;
 
         @include mq(sm) {
           flex-direction: row;
+          flex-wrap: wrap;
+          // Reserve the readings column on every row, so the labels stop at the
+          // same place whether or not that row actually has readings.
+          padding-right: $sp-5;
         }
 
         dt {
@@ -90,6 +95,60 @@
 
         dd {
           margin: 0;
+
+          // Never shrink: a squeezed cell is what made the HW labels wrap.
+          @include mq(sm) {
+            flex: 0 0 auto;
+          }
+        }
+
+        // HW labels hug the readings column, so the gap beside the toggle is
+        // the same whether a row carries one label or two.
+        dd.marks {
+          @include mq(sm) {
+            margin-left: auto;
+          }
+        }
+
+        // A homework date that falls outside the meeting days has no lecture
+        // to name, so its topic cell holds a dash instead of sitting empty.
+        dt .no-lecture {
+          color: $grey-dk-000;
+        }
+
+        // The exam banner keeps its natural left position instead of being
+        // pushed right with the HW labels.
+        dd.event {
+          @include mq(sm) {
+            margin-right: auto;
+          }
+        }
+
+        // The toggle sits out of flow in the column reserved by the dl's
+        // padding, so it holds the same spot open or closed. Its cell must
+        // therefore claim no width, or it soaks up the leftover space by a
+        // different amount on every row.
+        dd.readings {
+          @include mq(sm) {
+            flex: 0 0 0;
+          }
+
+          summary {
+            @include mq(sm) {
+              position: absolute;
+              top: 0;
+              right: 0;
+            }
+          }
+        }
+
+        // Expanded readings take their own full-width row underneath rather
+        // than competing for the space the labels sit in.
+        dd.readings:has(details[open]) {
+          @include mq(sm) {
+            flex: 1 0 100%;
+            padding-top: $sp-2;
+          }
         }
       }
     }
