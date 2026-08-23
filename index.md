@@ -147,11 +147,7 @@ The final will be held during the university final exam period, **Dec 14 - Dec 1
 
 At **three unannounced points** during the semester, we will hand out a short quiz in the middle of lecture. These are pure **extra credit**: each one is worth **1 percentage point added to your final grade**, for up to **3 points total** on top of the 100% above.
 
-They exist to reward you for showing up. Therefore, there are **no makeups**, and we will not announce the dates in advance. 
-
-Unlike the [slido polls](#format) during lecture, which stay ungraded all semester, these are handed out on paper and they do count -- as extra credit only.
-
-They will cover material from the same lecture, so they also work as a low-stakes check on the recent materials.
+They exist to reward you for showing up. Therefore, there are **no makeups**, and we will not announce the dates in advance. They will cover material from the same lecture, so they also work as a low-stakes check on the recent materials.
 
 
 ## Late Assignments
