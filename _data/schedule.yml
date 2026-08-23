@@ -10,6 +10,13 @@
 # it can land on days the class does not meet (releases are usually Thursdays).
 # Those dates are absolute — inserting a session does NOT shift them.
 #
+#
+# Slides: `slides` takes the bare Brightspace content topic id (the number in
+# .../viewContent/<id>/View), NOT a full URL. The agenda template expands it
+# against site.brightspace_content, so the per-semester org unit id stays in
+# _config.yml alone. A value containing "://" is emitted verbatim, for slides
+# hosted somewhere other than Brightspace.
+#
 # Rendered by _includes/agenda.html
 # ---------------------------------------------------------------------------
 
@@ -35,7 +42,7 @@ final:
 #
 # A date that is not a class day still gets its own row in the agenda.
 homework:
-  - {id: 1,  out: "2026-08-24", due: "2026-08-31"}  # wk 1  -> wk 2 gdb
+  - {id: 1,  out: "2026-08-26", due: "2026-08-31"}  # wk 1  -> wk 2 gdb
   - {id: 2,  out: "2026-08-31", due: "2026-09-14"}  # wk 2  -> wk 4 overflow
   - {id: 3,  out: "2026-09-14", due: "2026-09-21"}  # wk 4  -> wk 5 adv overflow
   - {id: 4,  out: "2026-09-21", due: "2026-09-28"}  # wk 5  -> wk 6 rop/heap
@@ -87,10 +94,10 @@ readings:
 # --- Sessions, in order. One entry = one class meeting. --------------------
 sessions:
   - topic: Introduction
-    # slides: https://purdue.brightspace.com/d2l/le/content/1360139/viewContent/20125751/View
+    # slides: 20125751
 
   - topic: Security Fundamentals
-    # slides: https://purdue.brightspace.com/d2l/le/content/1360139/viewContent/20122864/View
+    # slides: 20122864
     readings: >-
       Read: This World of Ours by James Mickens Watch: USENIX Security 2018
       Keynote by James Mickens
@@ -178,7 +185,7 @@ sessions:
   - topic: Symmetric Key Crypto 1
 
   - topic: Symmetric Key Crypto 2
-    # slides: https://purdue.brightspace.com/d2l/le/content/1216789/viewContent/19088038/View
+    # slides: 19088038
 
   - topic: Public Key Crypto-1
 

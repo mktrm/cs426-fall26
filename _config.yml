@@ -27,6 +27,20 @@ color_scheme: light
 search_enabled: true
 heading_anchors: true
 permalink: pretty
+# --- Brightspace ------------------------------------------------------------
+# The org unit id (1631580 = Fall 2026) changes with every new course shell.
+# It appears nowhere else in the repo: update these two lines each semester and
+# every Brightspace link on the site follows. _config.yml is not Liquid-rendered,
+# so the id cannot be interpolated into one line from the other.
+#
+# Usage: {{ site.brightspace_content }}/Home
+#        {{ site.brightspace_content }}/viewContent/<topic id>/View
+#        {{ site.brightspace_calendar }}
+#
+# Remember: Jekyll does NOT reload _config.yml -- restart `./serve.sh` after editing.
+brightspace_content: 'https://purdue.brightspace.com/d2l/le/content/1631580'
+brightspace_calendar: 'https://purdue.brightspace.com/d2l/le/calendar/1631580/home/list'
+
 aux_links:
   Kazem Taram:
     - 'https://mktrm.github.io/'

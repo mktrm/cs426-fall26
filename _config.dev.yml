@@ -1,0 +1,7 @@
+# Local development overrides. Applied on top of _config.yml by ./serve.sh.
+# Ports 4001/35730 are used so this site can run alongside mktrm.github.io (4000).
+
+url: 'http://localhost:4001'
+
+sass:
+  style: expanded

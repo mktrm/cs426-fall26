@@ -83,7 +83,18 @@ HW label lands in the same column as the rest.
 {%- endif -%}
 {%- continue -%}
 {%- endif -%}
-<dd><dl><dt><a href="{{ s.slides }}">{{ s.topic }}</a></dt>
+{%- comment -%}
+`slides` is normally a bare Brightspace content topic id, expanded here against
+site.brightspace_content so the course org unit id lives only in _config.yml.
+A value containing "://" is used verbatim, for slides hosted elsewhere.
+{%- endcomment -%}
+{%- assign slideurl = "" -%}
+{%- if s.slides -%}
+{%- if s.slides contains "://" -%}{%- assign slideurl = s.slides -%}
+{%- else -%}{%- capture slideurl -%}{{ site.brightspace_content }}/viewContent/{{ s.slides }}/View{%- endcapture -%}
+{%- endif -%}
+{%- endif -%}
+<dd><dl><dt><a href="{{ slideurl }}">{{ s.topic }}</a></dt>
 {%- if nhw > 0 -%}
 <dd class="marks">{{ hwmarks | strip }}</dd>
 {%- endif -%}
