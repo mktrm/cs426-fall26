@@ -94,7 +94,7 @@ readings:
 # --- Sessions, in order. One entry = one class meeting. --------------------
 sessions:
   - topic: Introduction
-    # slides: 20125751
+    slides: 22484423
 
   - topic: Security Fundamentals
     # slides: 20122864
