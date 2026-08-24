@@ -101,6 +101,8 @@ sessions:
     readings: >-
       Read: This World of Ours by James Mickens Watch: USENIX Security 2018
       Keynote by James Mickens
+      Watch: The Internet's Own Boy: The Story of Aaron Swartz
+
 
   - topic: Buffer Overflow Attacks 1
     readings: *smashing
