@@ -97,7 +97,7 @@ sessions:
     slides: 22484423
 
   - topic: Security Fundamentals
-    # slides: 20122864
+    slides: 22521097
     readings: >-
       Read: This World of Ours by James Mickens Watch: USENIX Security 2018
       Keynote by James Mickens
