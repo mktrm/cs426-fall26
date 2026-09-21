@@ -140,7 +140,7 @@ The midterm is scheduled for **Wednesday, Oct 14, 6:30PM - 7:30PM** at **RHPH 17
 
 ### Final (35%)
 The final exam will be cumulative over all of the course content.
-The final will be held during the university final exam period, **Dec 14 - Dec 19**. The exact day, time, and room are set by the registrar and will be posted here once the Purdue final exam schedule is released.
+The final will be held during the university final exam period, **Dec 17, 7-9 pm, room: PHYS 223**. 
 
 
 ### Surprise In-Class Quizzes (Extra Credit)

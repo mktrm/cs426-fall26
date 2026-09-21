@@ -30,8 +30,8 @@ holidays:
   "2026-11-25": Thanksgiving Break
 
 final:
-  dates: Dec 14 - Dec 19
-  note: Exact day, time, and room TBD (Purdue final exam schedule)
+  dates: Dec 17
+  note: 7-9 pm, PHYS 223
 
 # --- Homework. One entry per assignment, dates are absolute. ---------------
 # `out` is the release date, `due` the deadline. Every Monday carries a release
