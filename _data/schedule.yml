@@ -28,6 +28,7 @@ holidays:
   "2026-09-07": Labor Day
   "2026-10-12": Fall Break
   "2026-11-25": Thanksgiving Break
+  "2026-11-02": No Class
 
 final:
   dates: Dec 17
@@ -167,13 +168,15 @@ sessions:
       name: Midterm Exam
       detail: 6:30PM - 7:30PM at RHPH 172
 
-  - topic: Web Intro
+  - topic: Side Channels 3
     readings: *spectre
+
+  - topic: Recent Security Breach (PS5)
 
   - topic: Web Security Model
     readings: *web
 
-  - topic: Web Attacks
+  - topic: Web Attacks (Guest Lecture)
     readings: *web
 
   - topic: Network Intro
