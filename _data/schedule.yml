@@ -53,8 +53,8 @@ homework:
   # - {id: 8,  out: "2026-10-26", due: "2026-11-02"}  # wk 10 -> wk 11 web
   - {id: 8,  out: "2026-11-02", due: "2026-11-09"}  # wk 11 -> wk 12 net
   - {id: 9, out: "2026-11-09", due: "2026-11-16"}  # wk 12 -> wk 13 ai
-  - {id: 10, out: "2026-11-16", due: "2026-12-02"}  # wk 13 -> wk 14 crypto
-  # - {id: 12, out: "2026-11-23", due: "2026-11-30"}  # wk 14 -> wk 15 
+  - {id: 10, out: "2026-11-18", due: "2026-11-30"}  # wk 13 -> wk 14 crypto
+  - {id: 12, out: "2026-11-23", due: "2026-12-04"}  # wk 14 -> wk 15 
 
 # --- Reading lists shared by more than one lecture -------------------------
 # Defined once with &name, referenced below with *name.
